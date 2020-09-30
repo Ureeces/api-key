@@ -26,13 +26,29 @@
 // Inquirer: https://www.npmjs.com/package/inquirer
 // Read the docs to find out how to use. Pretty intuitive.
 
+// Get data from other files
 const backendMethods = require('./backend.js');
 const {search, printData} = backendMethods;
-let userInput = process.argv[2];
 
-let url = search(userInput, 'single');
-printData(url);
+// Input (Assumes correct input)
+let userCommand = process.argv[2];
+let searchFor = process.argv[3] ? process.argv[3] : undefined;
 
-const commands = [
-    'help'
-]
+// Command section
+switch(userCommand) {
+    case `help`:
+        console.log('Format is:\nnode main.js [searchType] [movie name]');
+        console.log(`Search types include: single and broad.`);
+        console.log(`Single returns data on a specific movie.`);
+        console.log(`Broad returns a list of movie titles based on the movie title`);
+        break;
+
+    case `single`:
+        let url = search(searchFor, 'single');
+        printData(url);
+        break;
+
+    default: 
+        console.log(`Unknown command.`);
+        break;
+}
