@@ -2,12 +2,14 @@ let fetch = require('node-fetch');
 
 // Used for movie search based on url based on the input in the terminal
 const search = (movie, searchType) => {
+    const key = require(`./key.js`);
+    
     if(searchType === 'single') {
-        return `http://www.omdbapi.com/?t=${movie}&apikey=ada86d43`;
+        return `http://www.omdbapi.com/?t=${movie}&${key}`;
     }
 
     else if(searchType === 'multi') {
-        return `http://www.omdbapi.com/?s=${movie}&apikey=ada86d43`;
+        return `http://www.omdbapi.com/?s=${movie}&${key}`;
     }
 
     return `Wrong input dummy.`;
