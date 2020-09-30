@@ -13,17 +13,25 @@ const search = (movie, searchType) => {
     return `Wrong input dummy.`;
 }
 
-// Test Data
-let url = search(`Jaws`, `single`);
-
 // Single Fetch
-fetch(url)
-    .then((response) => response.json())
-    .then(({Title, Year, Rated, Released, Director, Plot}) => {
-        console.log(`Title: ${Title}`);
-        console.log(`Directed By: ${Director}`);
-        console.log(`Release Date: ${Released}`);
-        console.log(`Rated ${Rated}`);
-        console.log(`Short Summary:\n${Plot}`);
-    })
-    .catch((err) => console.log(err))
+const printData = function(url) {
+    fetch(url)
+        .then((response) => response.json())
+        .then(({Title, Rated, Released, Director, Plot}) => {
+            if(Title === undefined) {
+                throw `Movie not found!`;
+            }
+            
+            console.log(`Title: ${Title}`);
+            console.log(`Directed By: ${Director}`);
+            console.log(`Release Date: ${Released}`);
+            console.log(`Rated ${Rated}`);
+            console.log(`Short Summary:\n${Plot}`);
+        })
+        .catch((err) => console.log(err))
+}
+
+module.exports = {
+    search,
+    printData
+}

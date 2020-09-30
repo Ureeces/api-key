@@ -26,7 +26,13 @@
 // Inquirer: https://www.npmjs.com/package/inquirer
 // Read the docs to find out how to use. Pretty intuitive.
 
+const backendMethods = require('./backend.js');
+const {search, printData} = backendMethods;
+let userInput = process.argv[2];
 
+let url = search(userInput, 'single');
+printData(url);
 
-// http://www.omdbapi.com/?i=tt3896198&apikey=
-let key = ada86d43;
+const commands = [
+    'help'
+]
