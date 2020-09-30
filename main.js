@@ -28,24 +28,27 @@
 
 // Get data from other files
 const backendMethods = require('./backend.js');
-const {search, printData} = backendMethods;
+const {search, printDataSingle, printDataMulti} = backendMethods;
 
 // Input (Assumes correct input)
 let userCommand = process.argv[2];
-let searchFor = process.argv[3] ? process.argv[3] : undefined;
+let searchFor = process.argv[3] ? process.argv[3] : '';
 
 // Command section
 switch(userCommand) {
     case `help`:
         console.log('Format is:\nnode main.js [searchType] [movie name]');
-        console.log(`Search types include: single and broad.`);
+        console.log(`Search types include: info and broadSearch.`);
         console.log(`Single returns data on a specific movie.`);
         console.log(`Broad returns a list of movie titles based on the movie title`);
         break;
 
-    case `single`:
+    case `info`:
         let url = search(searchFor, 'single');
-        printData(url);
+        printDataSingle(url);
+        break;
+
+    case `broadSearch` || `broad`:
         break;
 
     default: 
