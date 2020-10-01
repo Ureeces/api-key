@@ -33,22 +33,26 @@ const {search, printDataSingle, printDataMulti} = backendMethods;
 // Input (Assumes correct input)
 let userCommand = process.argv[2];
 let searchFor = process.argv[3] ? process.argv[3] : '';
+let url = '';
 
 // Command section
 switch(userCommand) {
     case `help`:
         console.log('Format is:\nnode main.js [searchType] [movie name]');
-        console.log(`Search types include: info and broadSearch.`);
-        console.log(`Single returns data on a specific movie.`);
-        console.log(`Broad returns a list of movie titles based on the movie title`);
+        console.log(`Search types include: info and broad.`);
+        console.log(`info returns data on a specific movie. Multi-word titles with spaces must be encased in quotes.`);
+        console.log(`broad returns a list of movie titles based on the movie title`);
         break;
 
     case `info`:
-        let url = search(searchFor, 'single');
+        url = search(searchFor, 'single');
         printDataSingle(url);
         break;
 
-    case `broadSearch` || `broad`:
+    case `broadSearch`:
+    case `broad`:
+        url = search(searchFor, 'multi');
+        printDataMulti(url);
         break;
 
     default: 

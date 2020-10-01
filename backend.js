@@ -19,23 +19,48 @@ const search = (movie, searchType) => {
 const printDataSingle = function(url) {
     fetch(url)
         .then((response) => response.json())
-        .then(({Title, Rated, Released, Director, Plot}) => {
+        .then(({Title, Rated, Released, Runtime, Genre, Director, Writer, Plot, Type, totalSeasons}) => {
             if(Title === undefined) {
                 throw `Movie not found!`;
             }
-            
+            console.log(`\n-----------------------`);
             console.log(`Title: ${Title}`);
-            console.log(`Directed By: ${Director}`);
+            console.log(`Type: ${Type}`);
+
+            if(Type === 'movie') {
+                console.log(`Directed By: ${Director}`);
+                console.log(`Runtime: ${Runtime}`);
+            }
+
+            else if(Type === 'series') {
+                console.log(`Seasons: ${totalSeasons}`);
+                console.log(`Average Episode Runtime: ${Runtime}`);
+            }
+            
+            console.log(`Genre(s): ${Genre}`);
             console.log(`Release Date: ${Released}`);
-            console.log(`Short Summary:\n${Plot}`);
+            console.log(`\nShort Summary:\n${Plot}\n`);
             console.log(`Rated ${Rated}`);
+            console.log(`-----------------------`);
         })
-        .catch((err) => console.log(err))
+        .catch((err) => console.log(err));
 }
 
 // Multi Fetch
 const printDataMulti = function(url) {
+    fetch(url)
+        .then((response) => response.json())
+        .then(({Search}) => {
+            if(Search === undefined) {
+                throw `No results found.`;
+            }
 
+            console.log(`\nYour search found ${Search.length} results:`);
+            console.log(`-----------------------`);
+            Search.forEach(({Title}, index) => console.log(`${index + 1}. ${Title}`))
+            console.log(`-----------------------`);
+        })
+        .catch((err) => console.log(err));
 }
 
 module.exports = {
