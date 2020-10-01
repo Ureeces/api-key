@@ -18,7 +18,7 @@ const search = (movie, searchType, pageNum) => {
     return `Somehow, something went wrong. So wrong in fact, that this text should not exist. Consider it an Easter Egg. Congratulations for finding it.`;
 }
 
-// Single Fetch
+// Single Media Fetch - Returns Detailed Data of a specific media
 const printDataSingle = function(url) {
     fetch(url)
         .then((response) => response.json())
@@ -26,9 +26,9 @@ const printDataSingle = function(url) {
             if(Title === undefined) {
                 throw `Movie not found!`;
             }
-            console.log(`\n-----------------------`);
-            console.log(`Title: ${Title}`);
-            console.log(`Type: ${Type}`);
+            console.log(`\n${Title}`);
+            console.log(`-----------------------`);
+            console.log(`Media type: ${Type}`);
 
             if(Type === 'movie') {
                 console.log(`Directed By: ${Director}`);
@@ -49,7 +49,7 @@ const printDataSingle = function(url) {
         .catch((err) => console.log(err));
 }
 
-// Multi Fetch
+// Multi Media Fetch - Returns list of titles based on search results.
 const printDataMulti = function(url, pageNum) {
     if(pageNum === undefined) {
         pageNum = 1;
